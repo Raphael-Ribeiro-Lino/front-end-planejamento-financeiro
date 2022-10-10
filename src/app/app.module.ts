@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CustoFixoModule } from './custos-fixos/custo-fixo.module';
 import { EntradaModule } from './entradas/entrada.module';
 
 @NgModule({
@@ -12,7 +14,9 @@ import { EntradaModule } from './entradas/entrada.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    EntradaModule
+    EntradaModule,
+    CustoFixoModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
