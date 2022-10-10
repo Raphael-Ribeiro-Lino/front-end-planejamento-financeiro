@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustoFixoModule } from './custos-fixos/custo-fixo.module';
+import { CustoVariavelModule } from './custos-variaveis/custo-variavel.module';
 import { EntradaModule } from './entradas/entrada.module';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { EntradaModule } from './entradas/entrada.module';
     AppRoutingModule,
     EntradaModule,
     CustoFixoModule,
+    CustoVariavelModule,
     RouterModule
   ],
   providers: [],
