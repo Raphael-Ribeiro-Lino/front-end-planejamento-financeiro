@@ -1,1 +1,32 @@
-<p>formulario-custos-fixos works!</p>
+<h1 *ngIf="!id" class="text-center">Cadastrar custo fixo</h1>
+<h1 *ngIf="id" class="text-center">Alterar custo fixo</h1>
+<form [formGroup]="custoFixoFormGroup">
+    <div class="form-floating mb-5 mt-5">
+        <input class="form-control" formControlName="nome" list="datalistOptions" id="nome" placeholder="Type to search...">
+        <div *ngIf="custoFixoFormGroup.get('nome')?.errors?.['required']" class="text-danger">
+            O nome do custo fixo é obrigatório!
+        </div>
+        <label for="tipo">Nome do custo</label>
+    </div>
+    <datalist id="datalistOptions">
+        <option value="Internet">
+        <option value="Dentista">
+        <option value="Celular">
+        <option value="Banho Spike">
+    </datalist>
+    <div class="input-group">
+        <span class="input-group-text">R$</span>
+        <div class="form-floating">
+            <input class="form-control" formControlName="valor" id="valor" type="number" min="0" step=".01" placeholder="Valor da Entrada">
+            <label for="valor">Valor do custo</label>
+        </div>
+    </div>
+    <div *ngIf="custoFixoFormGroup.get('valor')?.errors?.['required']" class="text-danger">
+        O valor do custo fixo é obrigatório!
+    </div>
+    <div class="form-floating mt-5 text-center">
+        <button *ngIf="!id" type="button" class="btn btn-outline-success" [disabled]="custoFixoFormGroup.invalid">Cadastrar</button>
+        <button *ngIf="id" type="button" class="btn btn-outline-success">Alterar</button>
+        <button type="button" class="btn btn-outline-danger ms-2" routerLink="/custos-fixos">Cancelar</button>
+    </div>
+</form>
