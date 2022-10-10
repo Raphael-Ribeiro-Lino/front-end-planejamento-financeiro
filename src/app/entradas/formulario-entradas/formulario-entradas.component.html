@@ -1,1 +1,32 @@
-<p>formulario-entradas works!</p>
+<h1 *ngIf="!id" class="text-center">Cadastrar entrada</h1>
+<h1 *ngIf="id" class="text-center">Alterar entrada</h1>
+<form [formGroup]="entradaFormGroup">
+    <div class="form-floating mb-5 mt-5">
+        <input class="form-control" formControlName="tipo" list="datalistOptions" id="tipo" placeholder="Type to search...">
+        <div *ngIf="entradaFormGroup.get('tipo')?.errors?.['required']" class="text-danger">
+            O tipo da entrada é obrigatório!
+        </div>
+        <label for="tipo">Tipo de entrada</label>
+    </div>
+    <datalist id="datalistOptions">
+        <option value="Salário">
+        <option value="Presente">
+        <option value="Renda extra">
+        <option value="Aluguel">
+    </datalist>
+    <div class="input-group">
+        <span class="input-group-text">R$</span>
+        <div class="form-floating">
+            <input class="form-control" formControlName="valor" id="valor" type="number" min="0" step=".01" placeholder="Valor da Entrada">
+            <label for="valor">Valor da entrada</label>
+        </div>
+    </div>
+    <div *ngIf="entradaFormGroup.get('valor')?.errors?.['required']" class="text-danger">
+        O valor da entrada é obrigatório!
+    </div>
+    <div class="form-floating mt-5 text-center">
+        <button *ngIf="!id" type="button" class="btn btn-outline-success" [disabled]="entradaFormGroup.invalid">Cadastrar</button>
+        <button *ngIf="id" type="button" class="btn btn-outline-success">Alterar</button>
+        <button type="button" class="btn btn-outline-danger ms-2" routerLink="/entradas">Cancelar</button>
+    </div>
+</form>
