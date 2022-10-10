@@ -1,1 +1,32 @@
-<p>formulario-custos-variaveis works!</p>
+<h1 *ngIf="!id" class="text-center">Cadastrar custo variável</h1>
+<h1 *ngIf="id" class="text-center">Alterar custo variável</h1>
+<form [formGroup]="custoVariavelFormGroup">
+    <div class="form-floating mb-5 mt-5">
+        <input class="form-control" formControlName="nome" list="datalistOptions" id="nome" placeholder="Type to search...">
+        <div *ngIf="custoVariavelFormGroup.get('nome')?.errors?.['required']" class="text-danger">
+            O nome do custo variável é obrigatório!
+        </div>
+        <label for="tipo">Nome do custo</label>
+    </div>
+    <datalist id="datalistOptions">
+        <option value="Diversão">
+        <option value="Cartão de crédito">
+        <option value="Transporte">
+        <option value="Katia">
+    </datalist>
+    <div class="input-group">
+        <span class="input-group-text">R$</span>
+        <div class="form-floating">
+            <input class="form-control" formControlName="valor" id="valor" type="number" min="0" step=".01" placeholder="Valor da Entrada">
+            <label for="valor">Valor do custo</label>
+        </div>
+    </div>
+    <div *ngIf="custoVariavelFormGroup.get('valor')?.errors?.['required']" class="text-danger">
+        O valor do custo variável é obrigatório!
+    </div>
+    <div class="form-floating mt-5 text-center">
+        <button *ngIf="!id" type="button" class="btn btn-outline-success" [disabled]="custoVariavelFormGroup.invalid">Cadastrar</button>
+        <button *ngIf="id" type="button" class="btn btn-outline-success">Alterar</button>
+        <button type="button" class="btn btn-outline-danger ms-2" routerLink="/custos-variaveis">Cancelar</button>
+    </div>
+</form>
