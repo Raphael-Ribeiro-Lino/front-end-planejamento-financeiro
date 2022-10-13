@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { EntradaInput } from 'src/app/dtos/inputs/entradaInput';
 import { EntradaService } from '../entrada.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class FormularioEntradasComponent implements OnInit {
   entradaFormGroup: FormGroup;
 
   erroAoCadastrar: string = '';
+  erroAoBuscar: string = '';
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -30,6 +32,53 @@ export class FormularioEntradasComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(this.id != null){
+      this.entradaService.buscaPeloId(this.id).subscribe(
+        data =>{
+          this.entradaFormGroup =this.formBuilder.group({
+            tipo: [data.tipo, Validators.required],
+            valor: [data.valor, Validators.required],
+          });
+        },
+        error =>{
+          console.log(error);
+          this.erroAoBuscar = error.error.message
+        }
+      )
+    }
+  }
+
+  cadastrar(){
+    this.erroAoCadastrar = ''
+    let autorInput = this.entradaFormGroup.getRawValue() as EntradaInput;
+    this.entradaService.cadastra(autorInput).subscribe(
+      data =>{
+        const navigationExtras: NavigationExtras = {state: {successData: "Entrada cadastrada com sucesso!"}}
+        this.router.navigate(['entradas'], navigationExtras)
+      },
+      error =>{
+        this.erroAoCadastrar = error.error.message
+      }
+    );
+  }
+
+  alterar(){
+    this.erroAoCadastrar = ''
+    let autorInput = this.entradaFormGroup.getRawValue() as EntradaInput;
+
+    if(!this.id){
+      return;
+    }
+
+    this.entradaService.altera(this.id, autorInput).subscribe(
+      data =>{
+        const navigationExtras: NavigationExtras = {state: {successData: "Entrada alterada com sucesso!"}}
+        this.router.navigate(['entradas'], navigationExtras)
+      },
+      error =>{
+        this.erroAoCadastrar = error.error.message
+      }
+    );
   }
 
 }

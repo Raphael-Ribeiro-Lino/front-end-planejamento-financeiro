@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EntradaOutput } from 'src/app/dtos/outputs/entradaOutput';
+import { EntradaService } from '../entrada.service';
 
 @Component({
   selector: 'app-lista-entradas',
@@ -8,16 +10,38 @@ import { EntradaOutput } from 'src/app/dtos/outputs/entradaOutput';
 })
 export class ListaEntradasComponent implements OnInit {
 
-  entradas: EntradaOutput[] = [
-    {id: 1, tipo: "Salário", valor: 2000.00},
-    {id: 2, tipo: "Aluguel", valor: 800.00},
-    {id: 3, tipo: "Renda extra", valor: 1000.00},
-    {id: 4, tipo: "Presente", valor: 200.00}
-  ]
+  erroNaRequiscao: string = '';
+  mensagemSemEntradasCadastradas: string = '';
+  entradaCadastradaComSucesso: string = '';
 
-  constructor() { }
+  entradas: EntradaOutput[] = []
+
+  constructor(private entradaService: EntradaService, private router: Router) {
+    const currentNavigation = router.getCurrentNavigation();
+    if(currentNavigation?.extras?.state?.['successData']){
+      this.entradaCadastradaComSucesso = currentNavigation.extras.state?.['successData']
+    }
+   }
 
   ngOnInit(): void {
+    this.buscaTodas();
+  }
+
+  buscaTodas(){
+    this.entradaService.buscaTodas().subscribe(
+      data =>{
+        if(data.length > 0){
+          this.entradas = data;
+        }else{
+          this.mensagemSemEntradasCadastradas = "Não foram encontradas entradas!"
+        }
+      },
+      error =>{
+        this.erroNaRequiscao = "Ocorreu um erro na requisição!";
+        console.log(error);
+        
+      }
+    )
   }
 
 }

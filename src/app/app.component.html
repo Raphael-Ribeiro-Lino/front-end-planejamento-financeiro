@@ -1,18 +1,44 @@
-<div class="container">
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Planejamento</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black p-3 mb-3 position-sticky">
+    <div class="container">
+      <a class="navbar-brand"
+        >PLANEJAMENTO</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" routerLink="/entradas">Entradas</a>
-          <a class="nav-link" routerLink="/custos-fixos">Custos fixos</a>
-          <a class="nav-link" routerLink="/custos-variaveis">Custos variáveis</a>
-        </div>
+      <div
+        class="collapse navbar-collapse justify-content-end"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav select">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/entradas"
+              >ENTRADAS</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/custos-fixos">CUSTOS FIXOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/custos-variaveis">CUSTOS VARIÁVEIS</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
-  <router-outlet></router-outlet>
-</div>
+</header>
+<main>
+  <section>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</main> 

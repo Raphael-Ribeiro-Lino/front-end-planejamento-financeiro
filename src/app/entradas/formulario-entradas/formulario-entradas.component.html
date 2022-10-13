@@ -1,5 +1,6 @@
 <h1 *ngIf="!id" class="text-center">Cadastrar entrada</h1>
 <h1 *ngIf="id" class="text-center">Alterar entrada</h1>
+<div *ngIf="erroAoBuscar != ''" class="alert alert-danger mt-3">{{erroAoBuscar}}</div>
 <form [formGroup]="entradaFormGroup">
     <div class="form-floating mb-5 mt-5">
         <input class="form-control" formControlName="tipo" list="datalistOptions" id="tipo" placeholder="Type to search...">
@@ -24,9 +25,10 @@
     <div *ngIf="entradaFormGroup.get('valor')?.errors?.['required']" class="text-danger">
         O valor da entrada é obrigatório!
     </div>
+    <div *ngIf="erroAoCadastrar != ''" class="alert alert-danger mt-3">{{erroAoCadastrar}}</div>
     <div class="form-floating mt-5 text-center">
-        <button *ngIf="!id" type="button" class="btn btn-outline-success" [disabled]="entradaFormGroup.invalid">Cadastrar</button>
-        <button *ngIf="id" type="button" class="btn btn-outline-success">Alterar</button>
+        <button *ngIf="!id" type="button" class="btn btn-outline-success" [disabled]="entradaFormGroup.invalid" (click)="cadastrar()">Cadastrar</button>
+        <button *ngIf="id" type="button" class="btn btn-outline-success" [disabled]="entradaFormGroup.invalid" (click)="alterar()">Alterar</button>
         <button type="button" class="btn btn-outline-danger ms-2" routerLink="/entradas">Cancelar</button>
     </div>
 </form>
